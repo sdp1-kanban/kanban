@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const send = require("send");
 const path = require("path");
+// Router
+const jobRouter = require('../app/routes/job.routes')
 
 module.exports = () => {
     const app = express();
@@ -31,7 +33,8 @@ module.exports = () => {
     }
 
     require("../app/routes/index.routes")(app);
-    require("../app/routes/job.routes")(app);
+    //require("../app/routes/job.routes")(app);   
+    app.use('/api', jobRouter)
 
     if (process.env.NODE_ENV === "production") {
         app.use(express.static(path.resolve(__dirname, "..", "client", "build")));
