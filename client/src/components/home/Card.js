@@ -4,7 +4,8 @@ import { CardContainer, CardTitle, Row1, Row2, CardDueDate, Row2RightCol, Row2Le
 
 function Card(props) {
     return (
-        <Draggable key={props.item.id} draggableId={props.item.id} index={props.index}>
+        //changed props.item.id to props.item._id for key= and draggableId= (KEEP THAT IN MIND)
+        <Draggable key={props.item._id} draggableId={props.item._id} index={props.index}>
             {(provided, snapshot) => {
                 return (
                     <CardContainer priority={props.item.priority}
@@ -12,10 +13,9 @@ function Card(props) {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={{ ...provided.draggableProps.style }}>
-
                         <Row1>
-                            <CardTitle to="/#">{props.item.id}</CardTitle>
-                            <CardDueDate>Due: {props.item.dueDate}</CardDueDate>
+                            <CardTitle to="/#">{props.item.toolingNum}</CardTitle>
+                            <CardDueDate>Due: {props.item.dueDate.split('T')[0]}</CardDueDate>
                         </Row1>
 
                         <Row2>
@@ -29,10 +29,10 @@ function Card(props) {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><Row2LeftCol>Part #: {props.item.partNumber}</Row2LeftCol></td>
+                                    <td><Row2LeftCol>Part #: {props.item.partNum}</Row2LeftCol></td>
                                 </tr>
                                 <tr>
-                                    <td><Row2LeftCol>Revision #: {props.item.revisionNumber}</Row2LeftCol></td>
+                                    <td><Row2LeftCol>Revision #: {props.item.revisionNum}</Row2LeftCol></td>
                                     <td>
                                         <ComboBox name="names">
                                             <option value="Osman">Osman</option>
@@ -52,7 +52,7 @@ function Card(props) {
                         </Row2>
 
                         <Row3>
-                            <JobShortDescription>{props.item.jobInfoHighlight}</JobShortDescription>
+                            <JobShortDescription>{props.item.jobShortDesc}</JobShortDescription>
                         </Row3>
                     </CardContainer>
                 )

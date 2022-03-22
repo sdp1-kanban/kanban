@@ -4,75 +4,24 @@ import Column from './Column';
 import { BoardDiv } from '../styles/Board.styled'
 import DataService from "../../services/DataService";
 
-function getTodaysDate() {
-    var currentDate = new Date()
-    var day = currentDate.getDate()
-    var month = currentDate.getMonth() + 1
-    var year = currentDate.getFullYear()
-    return "" + month + "/" + day + "/" + year;
-}
-
-const itemsFromBackend = [
-    {
-        id: 'T5255',
-        dueDate: getTodaysDate(),
-        customerName: 'Intel',
-        partNumber: 'FG783274',
-        revisionNumber: '8',
-        jobType: 'PO Order',
-        assignedTo: 'Osman Jan',
-        jobInfoHighlight: '8 Layer / TK Material / Outsource'
-    },
-    {
-        id: 'T5256',
-        dueDate: getTodaysDate(),
-        customerName: 'Intel',
-        partNumber: 'FG783274',
-        revisionNumber: '8',
-        jobType: 'PO Order',
-        assignedTo: 'Osman Jan',
-        jobInfoHighlight: '8 Layer / TK Material / Outsource'
-    },
-    {
-        id: 'T5257',
-        dueDate: getTodaysDate(),
-        customerName: 'Intel',
-        partNumber: 'FG783274',
-        revisionNumber: '8',
-        jobType: 'PO Order',
-        assignedTo: 'Osman Jan',
-        jobInfoHighlight: '8 Layer / TK Material / Outsource'
-    },
-    {
-        id: 'T5258',
-        dueDate: getTodaysDate(),
-        customerName: 'Intel',
-        partNumber: 'FG783274',
-        revisionNumber: '8',
-        jobType: 'PO Order',
-        assignedTo: 'Osman Jan',
-        jobInfoHighlight: '8 Layer / TK Material / Outsource'
-    }
-];
-
 const columnsFromBackend = {
-    ['column-1']: {
+    ['ENGINEERING']: {
         name: 'Engineering',
-        items: itemsFromBackend
+        items: []
     },
-    ['column-2']: {
+    ['CAM ENGINEERING']: {
         name: 'CAM Engineering',
         items: []
     },
-    ['column-3']: {
+    ['PRODUCT ENGINEERING']: {
         name: 'Product Engineering',
         items: []
     },
-    ['column-4']: {
+    ['FINAL REVIEW']: {
         name: 'Final Review',
         items: []
     },
-    ['column-5']: {
+    ['HOLD']: {
         name: 'Hold',
         items: []
     }
@@ -103,6 +52,9 @@ const onDragEnd = (result, columns, setColumns) => {
                 items: destItems
             }
         })
+
+        fetchJobAndUpdate(result);
+    
     } else {
         const column = columns[source.droppableId]
         const copiedItems = [...column.items]
@@ -120,10 +72,91 @@ const onDragEnd = (result, columns, setColumns) => {
     }
 };
 
+function fetchJobAndUpdate(jobData) {
+    let fetchedJob = {};
+    const jobId = jobData.draggableId;
+
+    const url = 'http://localhost:3001/api/job/' + jobId;
+    fetch(url)
+        .then(resp => {if(resp.ok){ return resp.json()}})
+        .then(resp => {
+            fetchedJob = resp.data;
+            updateJobColumn(fetchedJob, jobData);
+        })
+        .catch((error) => { console.error("Failed to fetch job, error: " + error) });
+}
+
+function updateJobColumn(job, jobCol) {
+    let updatedJob = {
+        ...job,
+        column: jobCol.destination.droppableId
+    };
+
+    fetch('http://localhost:3001/api/job/' + job._id, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedJob)
+    }).then(() => { console.log('Jobs column updated successfully');});
+}
+
+function fetchAllJobs(items, setColumns) {
+
+    let engineeringColumn = [];
+    let camColumn = [];
+    let productColumn = [];
+    let finalColumn = [];
+    let holdColumn = [];
+
+    console.log(items);
+
+    for (var i = 0; i < items.length; i++) {
+        if (items[i].column.toUpperCase() === 'ENGINEERING') engineeringColumn.push(items[i]);
+        if (items[i].column.toUpperCase() === 'CAM ENGINEERING') camColumn.push(items[i]);
+        if (items[i].column.toUpperCase() === 'PRODUCT ENGINEERING') productColumn.push(items[i]);
+        if (items[i].column.toUpperCase() === 'FINAL REVIEW') finalColumn.push(items[i]);
+        if (items[i].column.toUpperCase() === 'HOLD') holdColumn.push(items[i]);
+    }
+
+    setColumns({
+        ['ENGINEERING']: {
+            name: 'Engineering',
+            items: engineeringColumn
+        },
+        ['CAM ENGINEERING']: {
+            name: 'CAM Engineering',
+            items: camColumn
+        },
+        ['PRODUCT ENGINEERING']: {
+            name: 'Product Engineering',
+            items: productColumn
+        },
+        ['FINAL REVIEW']: {
+            name: 'Final Review',
+            items: finalColumn
+        },
+        ['HOLD']: {
+            name: 'Hold',
+            items: holdColumn
+        }
+    });
+}
+
+
 function Board() {
 
+    //TODO
+    /*
+        update mongoose schema to include column, assigned to field - DONE
+        figure out the id thing for the jobs (make it used _id instead) - DONE
+        update onDragEnd function to update column field in db
+        update onDragEnd to save index of card positions in each column (maybe use a sort method on the array?)
+    */
     const [columns, setColumns] = useState(columnsFromBackend);
 
+<<<<<<< Updated upstream
     useEffect(()=>{
         const fetchData = async () => {
             const result = await DataService.getAllUnfinishedJobs()
@@ -134,6 +167,20 @@ function Board() {
           };
           fetchData();
     },[]);
+=======
+    useEffect(() => {
+        let cancel = false;
+        const url = 'http://localhost:3001/api/jobs';
+        fetch(url)
+            .then(resp => resp.json())
+            .then((data) => {
+                if (!cancel) {
+                    fetchAllJobs(data, setColumns)
+                }
+            });
+        return () => { cancel = true; }
+    }, []);
+>>>>>>> Stashed changes
 
     return (
         <BoardDiv>
