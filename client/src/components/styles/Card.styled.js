@@ -96,6 +96,17 @@ export const JobShortDescription = styled.p`
     text-align: left;
 `
 
+export const CardHeader = styled.div`
+    display: flex;
+    justify-content: end; 
+`
+export const MenuButton = styled.div`
+    float: right;
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: 0;
+    margin-bottom: 25px;
+`
 // Needs rework, temp card color is black until Ata 
 // explains how he wants color coding done
 /*function setCardColor(priority) {
