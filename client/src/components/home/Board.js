@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './Column';
 import { BoardDiv } from '../styles/Board.styled'
+import DataService from "../../services/DataService";
 
 function getTodaysDate() {
     var currentDate = new Date()
@@ -122,6 +123,17 @@ const onDragEnd = (result, columns, setColumns) => {
 function Board() {
 
     const [columns, setColumns] = useState(columnsFromBackend);
+
+    useEffect(()=>{
+        const fetchData = async () => {
+            const result = await DataService.getAllUnfinishedJobs()
+            if (result.data.success) {
+                const jobs = result.data.data;
+                // TODO: Sort jobs into columns and call setColumns
+            } 
+          };
+          fetchData();
+    },[]);
 
     return (
         <BoardDiv>
