@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Draggable } from 'react-beautiful-dnd';
-import { CardContainer, CardTitle, Row1, Row2, CardDueDate, Row2RightCol, Row2LeftCol, Row3, Table, ComboBox, JobShortDescription, MenuButton, CardHeader } from '../styles/Card.styled'
-import KebabMenu from "./KebabMenu/KebabMenu";
+import { CardContainer, CardTitle, Row1, Row2, CardDueDate, Row2RightCol, Row2LeftCol, Row3, Table, ComboBox, JobShortDescription, MenuButton, CardHeader } from './Card.styled';
+import KebabMenu from "../KebabMenu/KebabMenu";
 
 function Card(props) {
     const [menuLocation, setMenuLocation] = useState({pageX: 0, pageY: 0});
@@ -25,7 +25,6 @@ function Card(props) {
     },[]);
     
     return (
-        //changed props.item.id to props.item._id for key= and draggableId= (KEEP THAT IN MIND)
         <Draggable key={props.item._id} draggableId={props.item._id} index={props.index}>
             {(provided, snapshot) => {
                 return (

@@ -1,12 +1,8 @@
 const Job = require("../models/job.model");
 
 getAllUnfinishedJobs = async (req, res) => {
-    // TODO: change this so it only retrieves jobs that are "open"
-    //temp gets all jobs
-    Job.find()
-        .then(jobs => res.json(jobs))
-        .catch(err => res.status(400).json('Error: ' + err));
-    //res.status(200).send("Still gotta do this one.");
+    // TODO
+    res.status(200).send("Still gotta do this one.");
 };
 
 // POST add a new job
@@ -70,8 +66,6 @@ updateJob = async (req, res) => {
         job.jobShortDesc = body.jobShortDesc
         job.assignedTo = body.assignedTo
         job.column = body.column
-        //job.jobInfoHiglight = body.jobInfoHiglight
-
 
         job
             .save()

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { DragDropContext } from 'react-beautiful-dnd';
-import Column from './Column';
-import { BoardDiv } from '../styles/Board.styled'
-import DataService from "../../services/DataService";
+import Column from '../Column/Column';
+import { BoardDiv } from './Board.styled'
+import DataService from "../../../services/DataService";
 
 const columnsFromBackend = {
     ['ENGINEERING']: {
@@ -52,9 +52,7 @@ const onDragEnd = (result, columns, setColumns) => {
                 items: destItems
             }
         })
-
         fetchJobAndUpdate(result);
-    
     } else {
         const column = columns[source.droppableId]
         const copiedItems = [...column.items]
@@ -74,16 +72,16 @@ const onDragEnd = (result, columns, setColumns) => {
 
 function fetchJobAndUpdate(jobData) {
     let fetchedJob = {};
-    const jobId = jobData.draggableId;
+    let jobId = jobData.draggableId;
 
-    const url = 'http://localhost:3001/api/job/' + jobId;
-    fetch(url)
-        .then(resp => {if(resp.ok){ return resp.json()}})
-        .then(resp => {
-            fetchedJob = resp.data;
+    const fetchJob = async () => {
+        const result = await DataService.getJob(jobId);
+        if (result.data.success) {
+            fetchedJob = result.data.data;
             updateJobColumn(fetchedJob, jobData);
-        })
-        .catch((error) => { console.error("Failed to fetch job, error: " + error) });
+        }
+    };
+    fetchJob();
 }
 
 function updateJobColumn(job, jobCol) {
@@ -92,25 +90,22 @@ function updateJobColumn(job, jobCol) {
         column: jobCol.destination.droppableId
     };
 
-    fetch('http://localhost:3001/api/job/' + job._id, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedJob)
-    }).then(() => { console.log('Jobs column updated successfully');});
+    const updateJob = async () => {
+        const result = await DataService.updateJob(job._id, updatedJob);
+        if(!result.data.success){
+            console.warn('Failed to update job column')
+        }
+    }
+    updateJob();
 }
 
-function fetchAllJobs(items, setColumns) {
+function displayJobs(items, setColumns) {
 
     let engineeringColumn = [];
     let camColumn = [];
     let productColumn = [];
     let finalColumn = [];
     let holdColumn = [];
-
-    console.log(items);
 
     for (var i = 0; i < items.length; i++) {
         if (items[i].column.toUpperCase() === 'ENGINEERING') engineeringColumn.push(items[i]);
@@ -144,43 +139,20 @@ function fetchAllJobs(items, setColumns) {
     });
 }
 
-
 function Board() {
 
-    //TODO
-    /*
-        update mongoose schema to include column, assigned to field - DONE
-        figure out the id thing for the jobs (make it used _id instead) - DONE
-        update onDragEnd function to update column field in db
-        update onDragEnd to save index of card positions in each column (maybe use a sort method on the array?)
-    */
     const [columns, setColumns] = useState(columnsFromBackend);
 
-<<<<<<< Updated upstream
-    useEffect(()=>{
+    useEffect(() => {
         const fetchData = async () => {
-            const result = await DataService.getAllUnfinishedJobs()
+            const result = await DataService.getAllUnfinishedJobs();
             if (result.data.success) {
                 const jobs = result.data.data;
-                // TODO: Sort jobs into columns and call setColumns
-            } 
-          };
-          fetchData();
-    },[]);
-=======
-    useEffect(() => {
-        let cancel = false;
-        const url = 'http://localhost:3001/api/jobs';
-        fetch(url)
-            .then(resp => resp.json())
-            .then((data) => {
-                if (!cancel) {
-                    fetchAllJobs(data, setColumns)
-                }
-            });
-        return () => { cancel = true; }
+                displayJobs(jobs, setColumns);
+            }
+        };
+        fetchData();
     }, []);
->>>>>>> Stashed changes
 
     return (
         <BoardDiv>
