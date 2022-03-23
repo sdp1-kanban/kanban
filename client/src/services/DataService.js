@@ -5,9 +5,13 @@ const api = axios.create({
 })
 
 export const getAllUnfinishedJobs = () => api.get(`/jobs`)
+export const getJob = (id) => api.get(`/job/${id}`)
+export const updateJob = (id, updatedJob) => api.put(`/job/${id}`, updatedJob)
 
 const apis = {
-    getAllUnfinishedJobs
+    getAllUnfinishedJobs,
+    getJob,
+    updateJob
 }
 
 export default apis

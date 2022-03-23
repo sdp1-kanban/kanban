@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Board from "../components/home/Board";
-import NavBar from "../components/home/NavBar";
+import Board from "../components/home/Board/Board";
+import NavBar from "../components/home/NavBar/NavBar";
 
 function Home() {
   return (

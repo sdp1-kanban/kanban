@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Droppable } from 'react-beautiful-dnd';
-import Card from "./Card";
-import { ColumnTitle, ColumnDiv } from '../styles/Column.styled'
+import Card from '../Card/Card';
+import { ColumnTitle, ColumnDiv } from './Column.styled';
 
 function Column(props) {
     return (
