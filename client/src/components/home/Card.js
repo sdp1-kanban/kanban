@@ -1,8 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Draggable } from 'react-beautiful-dnd';
-import { CardContainer, CardTitle, Row1, Row2, CardDueDate, Row2RightCol, Row2LeftCol, Row3, Table, ComboBox, JobShortDescription } from '../styles/Card.styled'
+import { CardContainer, CardTitle, Row1, Row2, CardDueDate, Row2RightCol, Row2LeftCol, Row3, Table, ComboBox, JobShortDescription, MenuButton, CardHeader } from '../styles/Card.styled'
+import KebabMenu from "./KebabMenu/KebabMenu";
 
 function Card(props) {
+    const [menuLocation, setMenuLocation] = useState({pageX: 0, pageY: 0});
+    const [showMenu, setShowMenu] = useState(false);
+    const menuRef = useRef(null);
+
+    const handleMenuClicked = (e) => {  
+        setMenuLocation({pageX: e.pageX, pageY: e.pageY});
+        setShowMenu(true);
+    }
+    
+    const handleOutsideClick = (e) => {
+        if(!menuRef.current?.contains(e.target)) {
+            setShowMenu(false);
+        } 
+    }
+    
+    useEffect(() => {
+        window.addEventListener('click', handleOutsideClick);
+        return () => {window.removeEventListener('click', handleOutsideClick)};
+    },[]);
+    
     return (
         <Draggable key={props.item.id} draggableId={props.item.id} index={props.index}>
             {(provided, snapshot) => {
@@ -12,7 +33,12 @@ function Card(props) {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         style={{ ...provided.draggableProps.style }}>
-
+                        <CardHeader>
+                            <div ref={menuRef}>
+                                <MenuButton onClick={(e)=>{handleMenuClicked(e)}}>...</MenuButton>
+                            </div>
+                        </CardHeader>
+                        <KebabMenu showMenu={showMenu} jobId={props.item.id} location={menuLocation}/>
                         <Row1>
                             <CardTitle to="/#">{props.item.id}</CardTitle>
                             <CardDueDate>Due: {props.item.dueDate}</CardDueDate>
