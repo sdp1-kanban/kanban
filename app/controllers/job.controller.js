@@ -16,7 +16,7 @@ addJob = (req, res) => {
         })
     }
 
-    const job = new Job(body)
+    const job = new Job(body);
 
     if (!job) {
         return res.status(400).json({ success: false, error: err })
@@ -63,7 +63,10 @@ updateJob = async (req, res) => {
         job.partNum = body.partNum
         job.revisionNum = body.revisionNum
         job.jobType = body.jobType
-        job.jobInfoHiglight = body.jobInfoHiglight
+        job.jobShortDesc = body.jobShortDesc
+        job.assignedTo = body.assignedTo
+        job.column = body.column
+
         job
             .save()
             .then(() => {
@@ -79,7 +82,7 @@ updateJob = async (req, res) => {
                     message: 'Job not updated!',
                 })
             })
-    })
+    }).clone().catch(function(err){console.log(err)})
 }
 
 deleteJob = async (req, res) => {
@@ -105,7 +108,7 @@ getJobById = async (req, res) => {
         }
 
         return res.status(200).json({ success: true, data: job })
-    }).catch(err => console.log(err))
+    }).clone().catch(err => console.log(err))
 }
 
 module.exports = {

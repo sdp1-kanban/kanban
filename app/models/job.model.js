@@ -5,9 +5,12 @@ const schema = new mongoose.Schema({
     dueDate : { type: Date },
     customerName: { type: String },
     partNum: { type: String},
-    revisionNum: { type: String },
+    revisionNum: { type: Number },
     jobType: { type: String},
-    jobInfoHiglight: { type: String}
+    jobShortDesc: { type: String },
+    assignedTo: { type: String },
+    column: { type: String },
+    isJobOpen: {type: Boolean}
 });
 
 module.exports = mongoose.model("Job", schema);
