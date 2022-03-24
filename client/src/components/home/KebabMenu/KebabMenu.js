@@ -1,11 +1,13 @@
-import React, {useContext} from "react";
-import { ModalContext } from "../../../Context";
+import React from "react";
+import {useBoardKey} from "../../../contexts/BoardContext";
+import {useModal} from "../../../contexts/ModalContext";
 import { MenuContainer, MenuList, MenuItem} from './KebabMenu.styled'
 import DataService from "../../../services/DataService";
 
 function KebabMenu(props) {
-    const {jobId, location, showMenu} = {...props};
-    const { modal, setModal } = useContext(ModalContext);
+    const {jobId, toolingNum, location, showMenu} = {...props};
+    const { modal, setModal } = useModal();
+    const { setBoardKey } = useBoardKey();
     
     const handleEdit = ()=>{
         //TODO: open edit page
@@ -14,7 +16,7 @@ function KebabMenu(props) {
     const handleDelete = ()=>{
         const modalConfig = {
             title: 'Confirm Delete',
-            message: `Are you sure you want to delete job ${jobId}?`,
+            message: `Are you sure you want to delete ${toolingNum}?`,
             buttons: [
             {
                 text: 'Cancel',
@@ -30,7 +32,7 @@ function KebabMenu(props) {
                     const result = await DataService.deleteJob(jobId);
                     if(result.data.success) {
                         setModal({...modal, showModal: false});
-                        // TODO: update ui after delete
+                        setBoardKey(Date.now()); // rerender board
                     }
                 }
             }]

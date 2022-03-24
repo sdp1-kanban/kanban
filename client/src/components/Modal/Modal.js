@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { ModalContext } from "../../Context";
+import React from "react";
+import { useModal } from "../../contexts/ModalContext";
 import {
   ModalBackground,
   ModalContainer,
@@ -10,7 +10,7 @@ import {
 } from "./Modal.styled";
 
 function Modal(props) {
-  const { modal, setModal } = useContext(ModalContext);
+  const { modal, setModal } = useModal();
 
   return (
     <ModalBackground>
