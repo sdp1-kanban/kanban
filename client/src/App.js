@@ -6,16 +6,19 @@ import {
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import "./App.css";
+import {ModalContextProvider} from "./contexts/ModalContext";
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
+      <ModalContextProvider>
+          <Router>
+            <Switch>
+                <Route path="/" exact component={Home} />
+                <Route component={NotFound} />
+            </Switch>
+          </Router>
+      </ModalContextProvider>
     </div>
   );
 }

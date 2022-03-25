@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import Column from '../Column/Column';
 import { BoardDiv } from './Board.styled'
 import DataService from "../../../services/DataService";
+import { useBoardKey } from "../../../contexts/BoardContext";
 
 const columnsFromBackend = {
     ['ENGINEERING']: {
@@ -140,8 +141,8 @@ function displayJobs(items, setColumns) {
 }
 
 function Board() {
-
     const [columns, setColumns] = useState(columnsFromBackend);
+    const {boardKey} = useBoardKey();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -152,7 +153,7 @@ function Board() {
             }
         };
         fetchData();
-    }, []);
+    }, [boardKey]);
 
     return (
         <BoardDiv>
@@ -163,7 +164,7 @@ function Board() {
                     );
                 })}
             </DragDropContext>
-        </BoardDiv>
+        </BoardDiv> 
     );
 }
 
