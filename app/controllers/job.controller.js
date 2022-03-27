@@ -1,8 +1,8 @@
 const Job = require("../models/job.model");
 
 getAllUnfinishedJobs = async (req, res) => {
-    // TODO
-    res.status(200).send("Still gotta do this one.");
+    const result = await Job.find().or([{ isJobOpen: true }, { isJobOpen: undefined }]).exec();
+    res.status(200).json(result);
 };
 
 // POST add a new job
