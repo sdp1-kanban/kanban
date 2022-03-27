@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import JobError from "./pages/JobError";
 import "./App.css";
 import {ModalContextProvider} from "./contexts/ModalContext";
 
