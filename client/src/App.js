@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import JobError from "./pages/JobError";
+import AddJob from "./pages/AddJob";
 import "./App.css";
 import {ModalContextProvider} from "./contexts/ModalContext";
 
@@ -16,6 +16,7 @@ function App() {
           <Router>
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/addjob" component={AddJob} />
                 <Route component={NotFound} />
             </Switch>
           </Router>

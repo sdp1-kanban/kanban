@@ -8,7 +8,7 @@ function NavBar() {
                 <NavTitle><span style={{color: '#d39624'}}>PFC </span><span style={{color:'white'}}> Flexible Circuits</span></NavTitle>
             </NavLink>
             <NavMenu>
-                <NavLink to="/#">Add Job</NavLink>
+                <NavLink to="/addjob">Add Job</NavLink>
                 <NavLink to="/#">Job History</NavLink>
             </NavMenu>
         </Nav>
