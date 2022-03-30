@@ -12,6 +12,7 @@ export const Nav = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
+    color: white !important;
     display: flex;
     align-items: center;
     font-family: 'Nunito', sans-serif;
@@ -25,7 +26,7 @@ export const NavLink = styled(Link)`
         color: white;
     }
     &:hover{
-        color: #d39624;
+        color: #d39624 !important;
     }
 `;
 
