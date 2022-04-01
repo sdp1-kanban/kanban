@@ -8,8 +8,8 @@ function JobError() {
 
             <div className="job-error">
 
-                <h3>Sorry Job not found</h3>
-                <p>Unfortunately The job you are trying to reteieve could not be completed, please contact the admin for support</p>
+                <h3>Sorry, Job not found!</h3>
+                <p>Unfortunately The job you are trying to retrieve could not be completed, please contact the admin for support</p>
 
                 <Link to="/"><a className="btn-1">Back to home</a></Link>
             </div>
