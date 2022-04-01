@@ -6,6 +6,7 @@ import {
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import AddJob from "./pages/AddJob";
+import EditJob from "./pages/EditJob";
 import "./App.css";
 import {ModalContextProvider} from "./contexts/ModalContext";
 
@@ -17,6 +18,7 @@ function App() {
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/addjob" component={AddJob} />
+                <Route path="/editJob" component={EditJob} />
                 <Route component={NotFound} />
             </Switch>
           </Router>
