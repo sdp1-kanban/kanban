@@ -11,6 +11,7 @@ import {
 } from "./JobForm.styled"
 import DataService from "../../../services/DataService"
 import { useHistory } from "react-router-dom";
+import Dropzone from "../../addAttachment/Attachment";
 
 function JobForm() {
 
@@ -120,6 +121,10 @@ function JobForm() {
                     <Input type="text" placeholder="Keyword 2" ref={jobDesc2}></Input>
                     <Input type="text" placeholder="Keyword 3" ref={jobDesc3}></Input>
                 </FormGroup>
+
+                <Dropzone>
+
+                </Dropzone>
 
                 <FormGroup>
                     {error ? <FormError>Error: Please fill in all fields.</FormError> : null}
