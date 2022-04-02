@@ -10,6 +10,7 @@ import {
 } from "./JobForm.styled"
 import DataService from "../../services/DataService"
 import { useHistory, useLocation } from "react-router-dom";
+import Attachment from "../Attachment/Attachment"
 
 function JobForm() {
 
@@ -143,6 +144,10 @@ function JobForm() {
                     <Input required type="text" placeholder="Keyword 2" value={job.jobShortDesc2} onChange={(e) => { setJob({ ...job, jobShortDesc2: e.target.value }) }}></Input>
                     <Input required type="text" placeholder="Keyword 3" value={job.jobShortDesc3} onChange={(e) => { setJob({ ...job, jobShortDesc3: e.target.value }) }}></Input>
                 </FormGroup>
+
+                <Attachment>
+                    
+                </Attachment>
 
                 <FormGroup>
                     <Button type="submit">{location.state.mode == "add" ? "Submit" : "Update"}</Button>
