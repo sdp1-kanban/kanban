@@ -5,24 +5,28 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import AddJob from "./pages/AddJob";
-import EditJob from "./pages/EditJob";
+import JobForm from "./components/JobForm/JobForm"
+import NavBar from "./components/home/NavBar/NavBar";
 import "./App.css";
-import {ModalContextProvider} from "./contexts/ModalContext";
+import { ModalContextProvider } from "./contexts/ModalContext";
+import { BoardContextProvider } from "./contexts/BoardContext";
 
 function App() {
   return (
     <div className="App">
-      <ModalContextProvider>
+      <BoardContextProvider>
+        <ModalContextProvider>
           <Router>
+            <NavBar />
             <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/addjob" component={AddJob} />
-                <Route path="/editJob" component={EditJob} />
-                <Route component={NotFound} />
+              <Route path="/" exact component={Home} />
+              <Route path="/addjob" component={JobForm} />
+              <Route path="/editJob" component={JobForm} />
+              <Route component={NotFound} />
             </Switch>
           </Router>
-      </ModalContextProvider>
+        </ModalContextProvider>
+      </BoardContextProvider>
     </div>
   );
 }

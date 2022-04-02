@@ -12,12 +12,12 @@ function KebabMenu(props) {
     const history = useHistory();
 
     const handleEdit = () => {
-        //TODO: open edit page
         history.push(
             {
                 pathname: '/editJob',
                 state: {
-                    jobId: jobId
+                    jobId: jobId,
+                    mode: "edit"
                 }
             }
         )

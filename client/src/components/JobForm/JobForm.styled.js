@@ -38,10 +38,3 @@ export const Button = styled.button`
     color: white;
     background-color: green;
 `
-export const FormError = styled.h1`
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.5rem;
-    text-align: center;
-    font-weight: 700;
-    color: red;
-`
