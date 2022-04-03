@@ -16,8 +16,7 @@ function JobForm() {
 
     let history = useHistory();
     let location = useLocation();
-    
-    const [job, setJob] = useState({
+    const newJob = {
         toolingNum: "",
         dueDate: "",
         customerName: "",
@@ -30,7 +29,8 @@ function JobForm() {
         assignedTo: "",
         column: "",
         isJobOpen: true
-    });
+    };
+    const [job, setJob] = useState(newJob);
 
     useEffect(() => {
         if (location.state.mode === "edit") {
@@ -56,6 +56,8 @@ function JobForm() {
                 }
             };
             fetchJob();
+        } else {
+            setJob(newJob);
         }
     }, [location.state.jobId, location.state.mode])
 
@@ -150,7 +152,7 @@ function JobForm() {
                 </Attachment>
 
                 <FormGroup>
-                    <Button type="submit">{location.state.mode == "add" ? "Submit" : "Update"}</Button>
+                    <Button type="submit">{location.state.mode === "add" ? "Submit" : "Update"}</Button>
                 </FormGroup>
             </Form>
         </div>
