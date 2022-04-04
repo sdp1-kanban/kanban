@@ -17,7 +17,7 @@ function Column(props) {
 
                                 {props.column.items.map((item, index) => {
                                     return (
-                                        <Card item={item} index={index} />
+                                        <Card item={item} index={index} key={index}/>
                                     );
                                 })}
                                 {provided.placeholder}

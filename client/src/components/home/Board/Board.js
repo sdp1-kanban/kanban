@@ -160,7 +160,7 @@ function Board() {
             <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
                 {Object.entries(columns).map(([id, column]) => {
                     return (
-                        <Column id={id} column={column} />
+                        <Column id={id} column={column} key={id}/>
                     );
                 })}
             </DragDropContext>

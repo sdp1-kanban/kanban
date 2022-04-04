@@ -46,34 +46,35 @@ function Card(props) {
 
                         <Row2>
                             <Table>
-                                <tr>
-                                    <td>
-                                        <Row2LeftCol>Customer: {props.item.customerName}</Row2LeftCol>
-                                    </td>
-                                    <td>
-                                        <Row2RightCol>{props.item.jobType}</Row2RightCol>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><Row2LeftCol>Part #: {props.item.partNum}</Row2LeftCol></td>
-                                </tr>
-                                <tr>
-                                    <td><Row2LeftCol>Revision #: {props.item.revisionNum}</Row2LeftCol></td>
-                                    <td>
-                                        <ComboBox name="names">
-                                            <option value="Osman">Osman</option>
-                                            <option value="Robin">Robin</option>
-                                            <option value="Ayan">Ayan</option>
-                                            <option value="Marianne">Marianne</option>
-                                            <option value="Parisa">Parisa</option>
-                                            <option value="Akino">Akino</option>
-                                            <option value="Asylhan">Asylhan</option>
-                                            <option value="Marwa">Marwa</option>
-                                            <option value="Hamoun">Hamoun</option>
-                                        </ComboBox>
-                                    </td>
-
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <Row2LeftCol>Customer: {props.item.customerName}</Row2LeftCol>
+                                        </td>
+                                        <td>
+                                            <Row2RightCol>{props.item.jobType}</Row2RightCol>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><Row2LeftCol>Part #: {props.item.partNum}</Row2LeftCol></td>
+                                    </tr>
+                                    <tr>
+                                        <td><Row2LeftCol>Revision #: {props.item.revisionNum}</Row2LeftCol></td>
+                                        <td>
+                                            <ComboBox name="names">
+                                                <option value="Osman">Osman</option>
+                                                <option value="Robin">Robin</option>
+                                                <option value="Ayan">Ayan</option>
+                                                <option value="Marianne">Marianne</option>
+                                                <option value="Parisa">Parisa</option>
+                                                <option value="Akino">Akino</option>
+                                                <option value="Asylhan">Asylhan</option>
+                                                <option value="Marwa">Marwa</option>
+                                                <option value="Hamoun">Hamoun</option>
+                                            </ComboBox>
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </Table>
                         </Row2>
 
