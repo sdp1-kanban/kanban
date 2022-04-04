@@ -1,5 +1,20 @@
 const Job = require("../models/job.model");
 
+uploadAttachments = async (req, res) => {
+    const filter = { _id: req.params.id };
+    const filePathArr = [];
+    for(let i = 0; i < req.files.length; i++){
+        filePathArr.push(req.files[i].path);
+    }
+    const update = { attachments: filePathArr }
+    let updatedJob = await Job.findOneAndUpdate(filter, update);
+    res.status(200).json({
+        success: true,
+        data: updatedJob,
+        message: 'Files uploaded successfully!'
+    });
+};
+
 getAllUnfinishedJobs = async (req, res) => {
     const result = await Job.find().or([{ isJobOpen: true }, { isJobOpen: undefined }]).exec();
     res.status(200).json({
@@ -120,5 +135,6 @@ module.exports = {
     addJob,
     updateJob,
     deleteJob,
-    getJobById
+    getJobById,
+    uploadAttachments
 }

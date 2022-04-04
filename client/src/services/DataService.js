@@ -9,13 +9,15 @@ export const getJob = (id) => api.get(`/job/${id}`)
 export const updateJob = (id, updatedJob) => api.put(`/job/${id}`, updatedJob)
 export const deleteJob = (jobId) => api.delete(`/job/${jobId}`)
 export const addJob = (jobToAdd) => api.post(`/job`, jobToAdd)
+export const uploadFiles = (files,jobId) => api.post(`/uploadAttachments/${jobId}`, files)
 
 const apis = {
     getAllUnfinishedJobs,
     getJob,
     updateJob,
     deleteJob,
-    addJob
+    addJob,
+    uploadFiles
 }
 
 export default apis

@@ -10,7 +10,8 @@ const schema = new mongoose.Schema({
     jobShortDesc: { type: String },
     assignedTo: { type: String },
     column: { type: String },
-    isJobOpen: {type: Boolean}
+    isJobOpen: {type: Boolean},
+    attachments: {type: Array}
 });
 
 module.exports = mongoose.model("Job", schema);
