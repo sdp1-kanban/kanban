@@ -7,8 +7,10 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import AddJob from "./pages/AddJob";
 import JobDetail from "./pages/JobDetail/JobDetail";
+//import JobError from "./pages/JobError/JobError";
 import "./App.css";
 import {ModalContextProvider} from "./contexts/ModalContext";
+
 
 function App() {
   return (

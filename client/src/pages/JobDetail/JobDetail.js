@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../../components/home/NavBar/NavBar";
 import DataService from "../../services/DataService";
-import { Container, Row } from "./JobDetail.styled";
+import { Container, Row, RowHead } from "./JobDetail.styled";
 // const jobData = {
 //   toolingNum: "12344",
 //   dueDate: "Dec 3rd 2022",
@@ -18,6 +18,7 @@ import { Container, Row } from "./JobDetail.styled";
 
 function JobDetail() {
   const [job, setJob] = useState({});
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
 
   const getJob = async () => {
@@ -37,12 +38,55 @@ function JobDetail() {
       <NavBar />
       <Container>
         <h1>Job Details</h1>
-        {Object.entries(job).map(([key, value]) => (
-          <Row>
-            <h3>{key}</h3>
-            <span>{value}</span>
-          </Row>
-        ))}
+
+        <RowHead onClick={()=>setOpen(!open)}>
+          <h3>Tooling Number</h3>
+          <span>{job.toolingNum}</span>
+        </RowHead>
+        {open && (
+          <div>
+            <Row>
+              <h3>Due Date</h3>
+              <span>{job.dueDate}</span>
+            </Row>
+            <Row>
+              <h3>Customer Name</h3>
+              <span>{job.customerName}</span>
+            </Row>
+            <Row>
+              <h3>Part Number</h3>
+              <span>{job.partNum}</span>
+            </Row>
+            <Row>
+              <h3>Revision Number</h3>
+              <span>{job.revisionNum}</span>
+            </Row>
+            <Row>
+              <h3>Job Type</h3>
+              <span>{job.jobType}</span>
+            </Row>
+            <Row>
+              <h3>Tooling Number</h3>
+              <span>{job.toolingNum}</span>
+            </Row>
+            <Row>
+              <h3>Job Description</h3>
+              <span>{job.jobShortDesc}</span>
+            </Row>
+            <Row>
+              <h3>Assigned To</h3>
+              <span>{job.assignedTo}</span>
+            </Row>
+            <Row>
+              <h3>column</h3>
+              <span>{job.column}</span>
+            </Row>
+            <Row>
+              <h3>Job Status</h3>
+              <span>{job.isJobOpen ? "Open" : "Closed"}</span>
+            </Row>
+          </div>
+        )}
       </Container>
     </div>
   );

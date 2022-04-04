@@ -1,18 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NavBar from "../components/home/NavBar/NavBar";
+import NavBar from "../../components/home/NavBar/NavBar";
+import {JobErrorDiv, JobErrorTitle, Btn1} from "./JobError.styled"
 function JobError() {
     return (
         <div>
             <NavBar />
 
-            <div className="job-error">
+            <JobErrorDiv>
 
-                <h3>Sorry, Job not found!</h3>
+                <JobErrorTitle>Sorry, Job not found!</JobErrorTitle>
                 <p>Unfortunately The job you are trying to retrieve could not be completed, please contact the admin for support</p>
 
-                <Link to="/"><a className="btn-1">Back to home</a></Link>
-            </div>
+                <Link to="/"><Btn1>Back to home</Btn1></Link>
+            </JobErrorDiv>
 
         </div>
     );

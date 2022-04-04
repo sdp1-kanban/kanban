@@ -12,4 +12,15 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 border-nottom:1px solid #aaa;
+padding:1rem;
+`
+export const RowHead   = styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-nottom:1px solid #aaa;
+border-radius:1rem;
+background-color:#eee;
+cursor:pointer;
+padding:1rem;
 `
