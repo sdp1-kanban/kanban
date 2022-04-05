@@ -7,6 +7,7 @@ const send = require("send");
 const path = require("path");
 // Router
 const jobRouter = require('../app/routes/job.routes')
+const empRouter = require('../app/routes/employee.routes')
 
 module.exports = () => {
     const app = express();
@@ -35,6 +36,7 @@ module.exports = () => {
     require("../app/routes/index.routes")(app);
     //require("../app/routes/job.routes")(app);   
     app.use('/api', jobRouter)
+    app.use('/api', empRouter)
     app.use(express.static(path.join(__dirname, '../files')));
 
     if (process.env.NODE_ENV === "production") {

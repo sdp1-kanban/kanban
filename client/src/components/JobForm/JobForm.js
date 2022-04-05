@@ -18,6 +18,7 @@ function JobForm() {
     let location = useLocation();
     const [files, setFiles] = useState();
     const [btnStatus, setBtnStatus] = useState(true);
+    const [options, setOptions] = useState()
 
     const newJob = {
         toolingNum: "",
@@ -35,7 +36,22 @@ function JobForm() {
     };
     const [job, setJob] = useState(newJob);
 
-    useEffect(() => {
+    useEffect(() => {   
+            // get all employess
+            const fetchData = async () => {
+                const result = await DataService.getEmployees();
+                if (result.data.success) {
+                    let options = [];
+                    const employees = result.data.data;            
+                    let names = employees.map(a => a.name);
+                    names.forEach(element => {
+                        options.push(<Option key={element} value={element}>{element}</Option>);
+                    });
+                    setOptions(options);
+                }
+            };
+            fetchData();
+
         if (location.state.mode === "edit") {
             const fetchJob = async () => {
                 const result = await DataService.getJob(location.state.jobId);
@@ -71,7 +87,7 @@ function JobForm() {
         const jobToAdd = {
             ...job,
             jobShortDesc: `${job.jobShortDesc1} / ${job.jobShortDesc2} / ${job.jobShortDesc3}`,
-            assignedTo: `Not Started`,
+            //assignedTo: `Not Started`,
             column: `ENGINEERING`,
             isJobOpen: true
         }
@@ -112,8 +128,7 @@ function JobForm() {
         }
     }
 
-
-
+    console.log(options)
     return (
         <div>
             <Form onSubmit={handleSubmit}>
@@ -149,6 +164,14 @@ function JobForm() {
                         <Option value="Data Review">Data Review</Option>
                         <Option value="ECO">ECO</Option>
                         <Option value="TV">TV</Option>
+                    </ComboBox>
+                </FormGroup>
+
+                <FormGroup>
+                    <Label>Job Assigned To</Label>
+                    <ComboBox value={job.assignedTo} onChange={(e) => { setJob({ ...job, assignedTo: e.target.value }) }}>
+                        <Option value="Not Started">Not Started</Option>
+                        {options}
                     </ComboBox>
                 </FormGroup>
 
