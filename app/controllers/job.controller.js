@@ -24,6 +24,15 @@ getAllUnfinishedJobs = async (req, res) => {
     });
 };
 
+getAllFinishedJobs = async (req, res) => {
+    const result = await Job.find({ isJobOpen: false }).exec();
+    res.status(200).json({
+        success: true,
+        data: result,
+        message: 'All finished jobs fetched!'
+    });
+};
+
 // POST add a new job
 addJob = (req, res) => {
     const body = req.body
@@ -132,6 +141,7 @@ getJobById = async (req, res) => {
 
 module.exports = {
     getAllUnfinishedJobs,
+    getAllFinishedJobs,
     addJob,
     updateJob,
     deleteJob,
