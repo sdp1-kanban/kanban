@@ -35,6 +35,7 @@ module.exports = () => {
     require("../app/routes/index.routes")(app);
     //require("../app/routes/job.routes")(app);   
     app.use('/api', jobRouter)
+    app.use(express.static(path.join(__dirname, '../files')));
 
     if (process.env.NODE_ENV === "production") {
         app.use(express.static(path.resolve(__dirname, "..", "client", "build")));

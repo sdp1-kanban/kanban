@@ -10,13 +10,16 @@ import {
 } from "./JobForm.styled"
 import DataService from "../../services/DataService"
 import { useHistory, useLocation } from "react-router-dom";
+import Attachment from "../Attachment/Attachment"
 
 function JobForm() {
 
     let history = useHistory();
     let location = useLocation();
-    
-    const [job, setJob] = useState({
+    const [files, setFiles] = useState();
+    const [btnStatus, setBtnStatus] = useState(true);
+
+    const newJob = {
         toolingNum: "",
         dueDate: "",
         customerName: "",
@@ -29,7 +32,8 @@ function JobForm() {
         assignedTo: "",
         column: "",
         isJobOpen: true
-    });
+    };
+    const [job, setJob] = useState(newJob);
 
     useEffect(() => {
         if (location.state.mode === "edit") {
@@ -55,6 +59,8 @@ function JobForm() {
                 }
             };
             fetchJob();
+        } else {
+            setJob(newJob);
         }
     }, [location.state.jobId, location.state.mode])
 
@@ -78,6 +84,11 @@ function JobForm() {
         // API call to post job to DB
         const postJob = async () => {
             const result = await DataService.addJob(jobToAdd)
+                .then((res) => {    
+                    if([...files].length > 0){
+                        addAttachments(res.data.id)
+                    }
+                })
                 .then(history.push("/"));
         };
 
@@ -86,6 +97,10 @@ function JobForm() {
             const result = await DataService.updateJob(job.id, jobToUpdate)
                 .then(history.push("/"));
         };
+
+        const addAttachments = async (jobId) => {
+            const result = await DataService.uploadFiles(files, jobId);
+        }
 
         switch (location.state.mode) {
             case 'add':
@@ -144,8 +159,10 @@ function JobForm() {
                     <Input required type="text" placeholder="Keyword 3" value={job.jobShortDesc3} onChange={(e) => { setJob({ ...job, jobShortDesc3: e.target.value }) }}></Input>
                 </FormGroup>
 
+                {location.state.mode === "add" ? <Attachment setFiles={setFiles} setBtnStatus={setBtnStatus} /> : null}
+
                 <FormGroup>
-                    <Button type="submit">{location.state.mode == "add" ? "Submit" : "Update"}</Button>
+                    <Button type="submit" disabled={btnStatus ? false : true} >{location.state.mode === "add" ? "Submit" : "Update"}</Button>
                 </FormGroup>
             </Form>
         </div>
