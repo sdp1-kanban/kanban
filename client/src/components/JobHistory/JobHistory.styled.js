@@ -35,8 +35,7 @@ export const Title = styled.h2`
     grid-column: 1;
     text-align: center;
     margin-left: 2rem;
-    color: black;
-    background-color: #e4e4e4;
+    color: goldenrod;
     padding-top: 0px;
     border-radius: 25px;
 `

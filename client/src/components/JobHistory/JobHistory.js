@@ -20,7 +20,7 @@ function JobHistory() {
 
     useEffect(() => {
         const fetchAllJobs = async () => {
-            const result = await DataService.getAllUnfinishedJobs();
+            const result = {}; // TODO: Replace with front-end service call for Job History 
             if (result.data.success) {
                 const jobs = result.data.data;
                 setJobs(jobs);
@@ -45,6 +45,8 @@ function JobHistory() {
                             <JobDetailsContainer>
                                 <JobInfo><span style={{ fontWeight: 'bold' }}>Customer:</span> {val.customerName}</JobInfo>
                                 <JobInfo><span style={{ fontWeight: 'bold' }}>Job Type:</span> {val.jobType}</JobInfo>
+                                <JobInfo><span style={{ fontWeight: 'bold' }}>Opened on:</span> {val.jobOpenDate.split("T")[0]}</JobInfo>
+                                <JobInfo><span style={{ fontWeight: 'bold' }}>Closed on:</span> {val.jobClosedDate.split("T")[0]}</JobInfo>
                             </JobDetailsContainer>
                             <JobStatusContainer>
                                 <JobStatus isOpen={val.isJobOpen}>{val.isJobOpen ? "Open" : "Closed"}</JobStatus>
