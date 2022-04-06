@@ -11,6 +11,7 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({storage: fileStorageEngine});
 
 router.get("/jobs", jobCtrl.getAllUnfinishedJobs)
+router.get("/jobs/finished", jobCtrl.getAllFinishedJobs)
 router.post('/job', jobCtrl.addJob)
 router.put('/job/:id', jobCtrl.updateJob)
 router.delete('/job/:id', jobCtrl.deleteJob)
