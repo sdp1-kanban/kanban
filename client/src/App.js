@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import JobForm from "./components/JobForm/JobForm"
+import JobForm from "./components/JobForm/JobForm";
+import JobHistory from "./components/JobHistory/JobHistory";
 import NavBar from "./components/home/NavBar/NavBar";
 import "./App.css";
 import { ModalContextProvider } from "./contexts/ModalContext";
@@ -22,6 +23,7 @@ function App() {
               <Route path="/" exact component={Home} />
               <Route path="/addjob" component={JobForm} />
               <Route path="/editJob" component={JobForm} />
+              <Route path="/jobHistory" component={JobHistory} />
               <Route component={NotFound} />
             </Switch>
           </Router>

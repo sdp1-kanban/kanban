@@ -32,6 +32,8 @@ function JobForm() {
         jobShortDesc3: "",
         assignedTo: "",
         column: "",
+        jobOpenDate: "",
+        jobClosedDate: "",
         isJobOpen: true
     };
     const [job, setJob] = useState(newJob);
@@ -89,6 +91,7 @@ function JobForm() {
             jobShortDesc: `${job.jobShortDesc1} / ${job.jobShortDesc2} / ${job.jobShortDesc3}`,
             //assignedTo: `Not Started`,
             column: `ENGINEERING`,
+            jobOpenDate: Date.now(),
             isJobOpen: true
         }
 

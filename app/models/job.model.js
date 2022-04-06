@@ -11,7 +11,9 @@ const schema = new mongoose.Schema({
     assignedTo: { type: String },
     column: { type: String },
     isJobOpen: {type: Boolean},
-    attachments: {type: Array}
+    attachments: {type: Array},
+    jobOpenDate: {type: Date},
+    jobClosedDate: {type: Date}
 });
 
 module.exports = mongoose.model("Job", schema);

@@ -14,7 +14,9 @@ function NavBar() {
                         mode: "add"
                     },
                 }}>Add Job</NavLink>
-                <NavLink to="/#">Job History</NavLink>
+                <NavLink to={{
+                    pathname: "/jobHistory"
+                }}>Job History</NavLink>
             </NavMenu>
         </Nav>
     );
