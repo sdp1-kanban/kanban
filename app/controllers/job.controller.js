@@ -139,6 +139,41 @@ getJobById = async (req, res) => {
     }).clone().catch(err => console.log(err))
 }
 
+closeJob = async (req, res) => {
+    await Job.findOne({ _id: req.params.id }, (err, job) => {
+        if (err) {
+          return res.status(404).json({
+            err,
+            message: 'Job not found!',
+          });
+        }
+
+        if (!job.isJobOpen) {
+            return res.status(400).json({ success: false, message: 'Job is already closed'});
+        }
+
+        job.column = '';
+        job.isJobOpen = false;
+        job.jobClosedDate = new Date();
+
+        job
+          .save()
+          .then(() => {
+            return res.status(200).json({
+              success: true,
+              id: job._id,
+              message: 'Job successfully closed!',
+            });
+          })
+          .catch((error) => {
+            return res.status(404).json({
+              error,
+              message: 'Failed to close job',
+            });
+          });
+    }).clone().catch(function(err){console.log(err)})
+}
+
 module.exports = {
     getAllUnfinishedJobs,
     getAllFinishedJobs,
@@ -146,5 +181,6 @@ module.exports = {
     updateJob,
     deleteJob,
     getJobById,
-    uploadAttachments
+    uploadAttachments,
+    closeJob
 }
