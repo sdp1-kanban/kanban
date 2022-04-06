@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useModal } from "../../contexts/ModalContext";
 import {
   ModalBackground,
@@ -11,7 +11,12 @@ import {
 
 function Modal(props) {
   const { modal, setModal } = useModal();
+  const messageBodyRef = useRef();
 
+  useEffect(()=>{
+    messageBodyRef.current.innerHTML = modal.config.message;
+  },[]);
+  
   return (
     <ModalBackground>
       <ModalContainer>
@@ -28,7 +33,7 @@ function Modal(props) {
           <h1>{modal.config.title}</h1>
         </Title>
         <Body>
-          <p>{modal.config.message}</p>
+          <p ref={messageBodyRef}></p>
         </Body>
 
         {/* Buttons */}

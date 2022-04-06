@@ -13,11 +13,16 @@ export const MenuContainer = styled.div`
 
 export const MenuList = styled.ul`
     padding: 0;
-    margin: 10px 0;
+    margin: 0;
+
+    hr {
+        width: 90%;
+        margin: auto;
+    }
 `
 
 export const MenuItem = styled.li`
-    padding: 0 10px;    
+    padding: 5px 10px;    
     list-style: none;
     &:hover {
         background: #f4f5f6;
