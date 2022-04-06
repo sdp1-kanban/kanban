@@ -20,7 +20,7 @@ function JobHistory() {
 
     useEffect(() => {
         const fetchAllJobs = async () => {
-            const result = {}; // TODO: Replace with front-end service call for Job History 
+            const result = {};// TODO: Replace with front-end service call for Job History 
             if (result.data.success) {
                 const jobs = result.data.data;
                 setJobs(jobs);
@@ -39,14 +39,14 @@ function JobHistory() {
             </HeaderContainer>
             {jobs.map((val) => {
                 return (
-                    <Container>
+                    <Container key={val._id}>
                         <Card>
                             <Title>{val.toolingNum}</Title>
                             <JobDetailsContainer>
                                 <JobInfo><span style={{ fontWeight: 'bold' }}>Customer:</span> {val.customerName}</JobInfo>
                                 <JobInfo><span style={{ fontWeight: 'bold' }}>Job Type:</span> {val.jobType}</JobInfo>
-                                <JobInfo><span style={{ fontWeight: 'bold' }}>Opened on:</span> {val.jobOpenDate.split("T")[0]}</JobInfo>
-                                <JobInfo><span style={{ fontWeight: 'bold' }}>Closed on:</span> {val.jobClosedDate.split("T")[0]}</JobInfo>
+                                <JobInfo><span style={{ fontWeight: 'bold' }}>Opened on:</span> { (new Date(val.jobOpenDate)).toLocaleString()}</JobInfo>
+                                <JobInfo><span style={{ fontWeight: 'bold' }}>Closed on:</span> {(new Date(val.jobClosedDate)).toLocaleString()}</JobInfo>
                             </JobDetailsContainer>
                             <JobStatusContainer>
                                 <JobStatus isOpen={val.isJobOpen}>{val.isJobOpen ? "Open" : "Closed"}</JobStatus>
