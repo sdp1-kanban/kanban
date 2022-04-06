@@ -148,6 +148,10 @@ closeJob = async (req, res) => {
           });
         }
 
+        if (!job.isJobOpen) {
+            return res.status(400).json({ success: false, message: 'Job is already closed'});
+        }
+
         job.column = '';
         job.isJobOpen = false;
         job.jobClosedDate = new Date();
