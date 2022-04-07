@@ -2,6 +2,26 @@ import React, { useEffect, useState, useRef } from "react";
 import { Draggable } from 'react-beautiful-dnd';
 import { CardContainer, CardTitle, Row1, Row2, CardDueDate, Row2RightCol, Row2LeftCol, Row3, Table, ComboBox, JobShortDescription, MenuButton, CardHeader } from './Card.styled';
 import KebabMenu from "../KebabMenu/KebabMenu";
+import DataService from "../../../services/DataService";
+
+let options = [];
+
+function getEmployeesNames() {
+    let names = [];
+    // get all employess
+    const fetchData = async () => {
+        const result = await DataService.getEmployees();
+        if (result.data.success) {
+            const employees = result.data.data;            
+            names = employees.map(a => a.name);
+            names.forEach(element => {
+                options.push(<option value={element}>{element}</option>);
+            });
+        }
+    };
+    fetchData();
+}
+getEmployeesNames()
 
 function Card(props) {
     const [menuLocation, setMenuLocation] = useState({pageX: 0, pageY: 0});
@@ -40,40 +60,44 @@ function Card(props) {
                         </CardHeader>
                         <KebabMenu showMenu={showMenu} jobId={props.item._id} toolingNum={props.item.toolingNum} location={menuLocation}/>
                         <Row1>
-                            <CardTitle to="/#">{props.item.toolingNum}</CardTitle>
+                            <CardTitle to={"/jobs/"+props.item.toolingNum}>{props.item.toolingNum}</CardTitle>
                             <CardDueDate>Due: {props.item.dueDate.split('T')[0]}</CardDueDate>
                         </Row1>
 
                         <Row2>
                             <Table>
-                                <tr>
-                                    <td>
-                                        <Row2LeftCol>Customer: {props.item.customerName}</Row2LeftCol>
-                                    </td>
-                                    <td>
-                                        <Row2RightCol>{props.item.jobType}</Row2RightCol>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><Row2LeftCol>Part #: {props.item.partNum}</Row2LeftCol></td>
-                                </tr>
-                                <tr>
-                                    <td><Row2LeftCol>Revision #: {props.item.revisionNum}</Row2LeftCol></td>
-                                    <td>
-                                        <ComboBox name="names">
-                                            <option value="Osman">Osman</option>
-                                            <option value="Robin">Robin</option>
-                                            <option value="Ayan">Ayan</option>
-                                            <option value="Marianne">Marianne</option>
-                                            <option value="Parisa">Parisa</option>
-                                            <option value="Akino">Akino</option>
-                                            <option value="Asylhan">Asylhan</option>
-                                            <option value="Marwa">Marwa</option>
-                                            <option value="Hamoun">Hamoun</option>
-                                        </ComboBox>
-                                    </td>
-
-                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <Row2LeftCol>Customer: {props.item.customerName}</Row2LeftCol>
+                                        </td>
+                                        <td>
+                                            <Row2RightCol>{props.item.jobType}</Row2RightCol>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><Row2LeftCol>Part #: {props.item.partNum}</Row2LeftCol></td>
+                                    </tr>
+                                    <tr>
+                                        <td><Row2LeftCol>Revision #: {props.item.revisionNum}</Row2LeftCol></td>
+                                        <td>
+                                            Assigned To: {props.item.assignedTo}
+                                            {/*
+                                            <ComboBox name="names"> 
+                                                <option value="Osman">Osman</option>
+                                                <option value="Robin">Robin</option>
+                                                <option value="Ayan">Ayan</option>
+                                                <option value="Marianne">Marianne</option>
+                                                <option value="Parisa">Parisa</option>
+                                                <option value="Akino">Akino</option>
+                                                <option value="Asylhan">Asylhan</option>
+                                                <option value="Marwa">Marwa</option>
+                                                <option value="Hamoun">Hamoun</option>                                          
+                                            </ComboBox>
+                                            */}
+                                        </td>
+                                    </tr>
+                                </tbody>
                             </Table>
                         </Row2>
 

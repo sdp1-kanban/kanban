@@ -18,7 +18,6 @@ import { Container, Row, RowHead } from "./JobDetail.styled";
 
 function JobDetail() {
   const [job, setJob] = useState({});
-  const [open, setOpen] = useState(false);
   const { id } = useParams();
 
   const getJob = async () => {
@@ -39,54 +38,49 @@ function JobDetail() {
       <Container>
         <h1>Job Details</h1>
 
-        <RowHead onClick={()=>setOpen(!open)}>
+        <RowHead>
           <h3>Tooling Number</h3>
           <span>{job.toolingNum}</span>
         </RowHead>
-        {open && (
-          <div>
-            <Row>
-              <h3>Due Date</h3>
-              <span>{job.dueDate}</span>
-            </Row>
-            <Row>
-              <h3>Customer Name</h3>
-              <span>{job.customerName}</span>
-            </Row>
-            <Row>
-              <h3>Part Number</h3>
-              <span>{job.partNum}</span>
-            </Row>
-            <Row>
-              <h3>Revision Number</h3>
-              <span>{job.revisionNum}</span>
-            </Row>
-            <Row>
-              <h3>Job Type</h3>
-              <span>{job.jobType}</span>
-            </Row>
-            <Row>
-              <h3>Tooling Number</h3>
-              <span>{job.toolingNum}</span>
-            </Row>
-            <Row>
-              <h3>Job Description</h3>
-              <span>{job.jobShortDesc}</span>
-            </Row>
-            <Row>
-              <h3>Assigned To</h3>
-              <span>{job.assignedTo}</span>
-            </Row>
-            <Row>
-              <h3>column</h3>
-              <span>{job.column}</span>
-            </Row>
-            <Row>
-              <h3>Job Status</h3>
-              <span>{job.isJobOpen ? "Open" : "Closed"}</span>
-            </Row>
-          </div>
-        )}
+
+        <div>
+          <Row>
+            <h3>Due Date</h3>
+            <span>{job.dueDate.split("T")[0]}</span>
+          </Row>
+          <Row>
+            <h3>Customer Name</h3>
+            <span>{job.customerName}</span>
+          </Row>
+          <Row>
+            <h3>Part Number</h3>
+            <span>{job.partNum}</span>
+          </Row>
+          <Row>
+            <h3>Revision Number</h3>
+            <span>{job.revisionNum}</span>
+          </Row>
+          <Row>
+            <h3>Job Type</h3>
+            <span>{job.jobType}</span>
+          </Row>
+          <Row>
+            <h3>Job Description</h3>
+            <span>{job.jobShortDesc}</span>
+          </Row>
+          <Row>
+            <h3>Assigned To</h3>
+            <span>{job.assignedTo}</span>
+          </Row>
+          <Row>
+            <h3>column</h3>
+            <span>{job.column}</span>
+          </Row>
+          <Row>
+            <h3>Job Status</h3>
+            <span>{job.isJobOpen ? "Open" : "Closed"}</span>
+          </Row>
+        </div>
       </Container>
     </div>
   );

@@ -31,17 +31,24 @@ export const Option = styled.option`
     font-size: 1rem;
 `
 export const Button = styled.button`
-    font-size: 32px;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
+    font-size: 24px;
     color: white;
-    background-color: green;
-`
-export const FormError = styled.h1`
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.5rem;
-    text-align: center;
-    font-weight: 700;
-    color: red;
+    background-color: #50c878;
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 5px solid #3ba860;
+
+    &:disabled{
+        background-color: gray;
+        border-color: gray;
+        &:hover{
+            background-color: gray;
+            cursor: not-allowed;
+        }
+    }
+    &:hover{
+        background-color: #3ba860;
+        cursor: pointer;
+    }
 `

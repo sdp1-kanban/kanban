@@ -1,11 +1,35 @@
 const Job = require("../models/job.model");
 
+uploadAttachments = async (req, res) => {
+    const filter = { _id: req.params.id };
+    const filePathArr = [];
+    for(let i = 0; i < req.files.length; i++){
+        filePathArr.push(req.files[i].path);
+    }
+    const update = { attachments: filePathArr }
+    let updatedJob = await Job.findOneAndUpdate(filter, update);
+    res.status(200).json({
+        success: true,
+        data: updatedJob,
+        message: 'Files uploaded successfully!'
+    });
+};
+
 getAllUnfinishedJobs = async (req, res) => {
     const result = await Job.find().or([{ isJobOpen: true }, { isJobOpen: undefined }]).exec();
     res.status(200).json({
         success: true,
         data: result,
         message: 'All jobs fetched!'
+    });
+};
+
+getAllFinishedJobs = async (req, res) => {
+    const result = await Job.find({ isJobOpen: false }).exec();
+    res.status(200).json({
+        success: true,
+        data: result,
+        message: 'All finished jobs fetched!'
     });
 };
 
@@ -115,10 +139,48 @@ getJobById = async (req, res) => {
     }).clone().catch(err => console.log(err))
 }
 
+closeJob = async (req, res) => {
+    await Job.findOne({ _id: req.params.id }, (err, job) => {
+        if (err) {
+          return res.status(404).json({
+            err,
+            message: 'Job not found!',
+          });
+        }
+
+        if (!job.isJobOpen) {
+            return res.status(400).json({ success: false, message: 'Job is already closed'});
+        }
+
+        job.column = '';
+        job.isJobOpen = false;
+        job.jobClosedDate = new Date();
+
+        job
+          .save()
+          .then(() => {
+            return res.status(200).json({
+              success: true,
+              id: job._id,
+              message: 'Job successfully closed!',
+            });
+          })
+          .catch((error) => {
+            return res.status(404).json({
+              error,
+              message: 'Failed to close job',
+            });
+          });
+    }).clone().catch(function(err){console.log(err)})
+}
+
 module.exports = {
     getAllUnfinishedJobs,
+    getAllFinishedJobs,
     addJob,
     updateJob,
     deleteJob,
-    getJobById
+    getJobById,
+    uploadAttachments,
+    closeJob
 }
