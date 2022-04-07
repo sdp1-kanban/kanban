@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import NavBar from "../../components/home/NavBar/NavBar";
 import DataService from "../../services/DataService";
 import { Container, Row, RowHead } from "./JobDetail.styled";
-// const jobData = {
-//   toolingNum: "12344",
-//   dueDate: "Dec 3rd 2022",
-//   customerName: "Ayan Jama",
-//   partNum: "1111",
-//   revisionNum: "32a",
-//   jobType: "Engineer",
-//   jobShortDesc: "go fix that thing",
-//   assignedTo: "Osman",
-//   column: "i dont know",
-//   isJobOpen: true,
-// };
 
 function JobDetail() {
   const [job, setJob] = useState({});
@@ -34,7 +21,7 @@ function JobDetail() {
 
   return (
     <div>
-      <NavBar />
+      
       <Container>
         <h1>Job Details</h1>
 
@@ -46,7 +33,7 @@ function JobDetail() {
         <div>
           <Row>
             <h3>Due Date</h3>
-            <span>{job.dueDate.split("T")[0]}</span>
+            <span>{(new Date(job.dueDate)).toLocaleDateString()}</span>
           </Row>
           <Row>
             <h3>Customer Name</h3>
@@ -73,7 +60,7 @@ function JobDetail() {
             <span>{job.assignedTo}</span>
           </Row>
           <Row>
-            <h3>column</h3>
+            <h3>Column</h3>
             <span>{job.column}</span>
           </Row>
           <Row>
