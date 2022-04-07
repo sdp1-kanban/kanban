@@ -15,7 +15,7 @@ export const ModalBackground = styled.div`
   
 export const ModalContainer = styled.div`
     font-family: 'Open Sans',sans-serif;
-    width: 500px;
+    width: 600px;
     height: 320px;
     border-radius: 12px;
     background-color: white;
@@ -61,17 +61,30 @@ export const Footer = styled.div`
     }
 
     .btn-primary {
-        background-color: cornflowerblue;
+        background-color: #007bff;
+        border-color: #007bff;
     }
     .btn-primary:hover {
-        background-color: #3070e0;
+        background-color: #0069d9;
+        border-color: #0062cc;
     }
 
     .btn-secondary {
-        background-color: grey;
+        background-color: #6c757d;
+        border-color: #6c757d;
     }
     .btn-secondary:hover {
-        background-color: #636262;
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130
     }
 `
 export const TitleCloseButton = styled.div`

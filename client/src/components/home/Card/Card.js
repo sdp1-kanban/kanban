@@ -58,7 +58,7 @@ function Card(props) {
                                 <MenuButton onClick={(e)=>{handleMenuClicked(e)}}>...</MenuButton>
                             </div>
                         </CardHeader>
-                        <KebabMenu showMenu={showMenu} jobId={props.item._id} toolingNum={props.item.toolingNum} location={menuLocation}/>
+                        <KebabMenu showMenu={showMenu} job={props.item} toolingNum={props.item.toolingNum} location={menuLocation}/>
                         <Row1>
                             <CardTitle to="/#">{props.item.toolingNum}</CardTitle>
                             <CardDueDate>Due: {props.item.dueDate.split('T')[0]}</CardDueDate>
