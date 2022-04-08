@@ -60,7 +60,7 @@ function Card(props) {
                         </CardHeader>
                         <KebabMenu showMenu={showMenu} job={props.item} toolingNum={props.item.toolingNum} location={menuLocation}/>
                         <Row1>
-                            <CardTitle to="/#">{props.item.toolingNum}</CardTitle>
+                            <CardTitle to={"/jobs/"+props.item._id}>{props.item.toolingNum}</CardTitle>
                             <CardDueDate>Due: {props.item.dueDate.split('T')[0]}</CardDueDate>
                         </Row1>
 

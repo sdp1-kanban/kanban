@@ -11,6 +11,7 @@ import NavBar from "./components/home/NavBar/NavBar";
 import "./App.css";
 import { ModalContextProvider } from "./contexts/ModalContext";
 import { BoardContextProvider } from "./contexts/BoardContext";
+import JobDetail from "./pages/JobDetail/JobDetail";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/addjob" component={JobForm} />
               <Route path="/editJob" component={JobForm} />
               <Route path="/jobHistory" component={JobHistory} />
+              <Route path="/jobs/:id" component={JobDetail} />
               <Route component={NotFound} />
             </Switch>
           </Router>
