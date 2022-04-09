@@ -5,11 +5,7 @@ downloadAttachments = async (req,res) =>{
     const fileRequest = req.query.file.substring(6);
     const file = fs.createReadStream("files/"+fileRequest);
     res.setHeader('Content-disposition', 'attachment; filename="'+fileRequest+'"');
-    res.status(200).json({
-        success: true,
-        data: file,
-        message: 'Files downloaded successfully!'
-    });
+    file.pipe(res);
 }
 
 uploadAttachments = async (req, res) => {
