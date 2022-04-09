@@ -1,4 +1,12 @@
 const Job = require("../models/job.model");
+const fs = require("fs");
+
+downloadAttachments = async (req,res) =>{
+    const fileRequest = req.query.file.substring(6);
+    const file = fs.createReadStream("files/"+fileRequest);
+    res.setHeader('Content-disposition', 'attachment; filename="'+fileRequest+'"');
+    file.pipe(res);
+}
 
 uploadAttachments = async (req, res) => {
     const filter = { _id: req.params.id };
@@ -182,5 +190,6 @@ module.exports = {
     deleteJob,
     getJobById,
     uploadAttachments,
-    closeJob
+    closeJob,
+    downloadAttachments
 }
