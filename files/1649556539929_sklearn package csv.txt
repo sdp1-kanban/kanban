@@ -1,0 +1,3 @@
+iris is saved in
+
+C:\Users\Osman\AppData\Local\Programs\Python\Python39\Lib\site-packages\sklearn\datasets\data

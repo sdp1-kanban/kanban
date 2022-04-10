@@ -14,7 +14,7 @@ uploadAttachments = async (req, res) => {
     for(let i = 0; i < req.files.length; i++){
         filePathArr.push(req.files[i].path);
     }
-    const update = { attachments: filePathArr }
+    const update = { $push: {attachments: filePathArr} }
     let updatedJob = await Job.findOneAndUpdate(filter, update);
     res.status(200).json({
         success: true,
