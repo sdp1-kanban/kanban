@@ -1,7 +1,7 @@
 const Job = require("../models/job.model");
-const fs = require("fs");
 
 downloadAttachments = async (req,res) =>{
+    const fs = require("fs");
     const fileRequest = req.query.file.substring(6);
     const file = fs.createReadStream("files/"+fileRequest);
     res.setHeader('Content-disposition', 'attachment; filename="'+fileRequest+'"');
