@@ -45,13 +45,18 @@ const Attachment = ({ setFiles, setBtnStatus, refresh, required }) => {
 
     useEffect(() => {
         if (required) {
-            if (validFiles.length > 0) {
+            if ((validFiles.length > 0)&&(unsupportedFiles.length === 0)) {
                 setBtnStatus(true);
-            } else {
+            } else if((validFiles.length > 0)&&(unsupportedFiles.length > 0)){
+                setBtnStatus(false);
+            } else if((validFiles.length === 0)&&(unsupportedFiles.length > 0)){
+                setBtnStatus(false);
+            }else if((validFiles.length === 0)&&(unsupportedFiles.length === 0)){
                 setBtnStatus(false);
             }
         }
-    }, [validFiles])
+    }, [validFiles],[unsupportedFiles])
+
 
     useEffect(() => {
         uploadFiles();
