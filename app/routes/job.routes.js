@@ -19,5 +19,7 @@ router.put('/job/close/:id', jobCtrl.closeJob)
 router.delete('/job/:id', jobCtrl.deleteJob)
 router.get('/job/:id', jobCtrl.getJobById)
 router.post('/uploadAttachments/:id', upload.array('files'), jobCtrl.uploadAttachments)
+router.get('/job/:id/review-notes', jobCtrl.getJobReviewNotes)
+router.post('/job/:id/review-notes', jobCtrl.createJobReviewNote)
 
 module.exports = router
