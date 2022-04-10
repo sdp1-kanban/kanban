@@ -1,4 +1,5 @@
 const Job = require("../models/job.model");
+const ReviewNote = require("../models/reviewnote.model");
 
 uploadAttachments = async (req, res) => {
     const filter = { _id: req.params.id };
@@ -174,6 +175,49 @@ closeJob = async (req, res) => {
     }).clone().catch(function(err){console.log(err)})
 }
 
+
+getJobById = async (req, res) => {
+    await Job.findOne({ _id: req.params.id }, (err, job) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        return res.status(200).json({ success: true, data: job })
+    }).clone().catch(err => console.log(err))
+}
+getJobReviewNotes = async (req, res) => {
+    const notes = await ReviewNote.find({ job: req.params.id }).select("-job").exec();
+
+    res.status(200).json({
+        success: true,
+        data: notes,
+        message: 'All review notes fetched!'
+    });
+};
+
+createJobReviewNote = async (req, res) => {
+    const note = new ReviewNote({
+        job: req.params.id,
+        content: req.body.content,
+        // TODO: once things are linked up with accounts - save author as well
+    });
+
+    try {
+        await note.save();
+
+        res.status(201).json({
+            success: true,
+            id: note._id,
+            message: 'Review note created!',
+        });
+    } catch (error) {
+        res.status(400).json({
+            error,
+            message: 'Review note not created!',
+        });
+    }
+};
+
 module.exports = {
     getAllUnfinishedJobs,
     getAllFinishedJobs,
@@ -182,5 +226,7 @@ module.exports = {
     deleteJob,
     getJobById,
     uploadAttachments,
-    closeJob
-}
+    closeJob,
+    getJobReviewNotes,
+    createJobReviewNote,
+};
