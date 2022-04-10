@@ -13,7 +13,7 @@ export const addJob = (jobToAdd) => api.post(`/job`, jobToAdd)
 export const uploadFiles = (files,jobId) => api.post(`/uploadAttachments/${jobId}`, files)
 export const closeJob = (id) => api.put(`/job/close/${id}`)
 export const getEmployees = () => api.get(`/employees`)
-export const downloadFiles = () => api.get(`/downloadAttachments`)
+export const downloadFiles = (file,res) => api.get(`/downloadAttachments?file=${file}`,res)
 
 
 const apis = {

@@ -4,8 +4,7 @@ import DataService from "../../services/DataService";
 import { Container, Row, RowHead, Button, Ul } from "./JobDetail.styled";
 import { useHistory, useLocation } from "react-router-dom";
 import Attachment from "../Attachment/Attachment";
-
-const downloadUrl = "http://localhost:3001/api/downloadAttachments?file=";
+import download from 'downloadjs';
 
 function JobDetail() {
   const [job, setJob] = useState({});
@@ -29,6 +28,15 @@ function JobDetail() {
     setRefresh(false);
   }, [id, refresh]);
 
+  const downloadFile = async (file) => {
+    const result = await DataService.downloadFiles(`${file}`, {
+      responseType: 'blob'
+    })
+    download(result.data,file);
+    console.log(result);
+  };
+
+  
   const handleSubmit = (e) => {
     console.log(files);
     e.preventDefault();
@@ -91,18 +99,21 @@ function JobDetail() {
           <Row>
             <h3>Attachment</h3>
             <Ul>
-              {
+            {
                 jobLoaded ? job.attachments.map((element, i) => (
                   element.map((file, i) => (
-                    <li key={i}><a target="_blank" href={downloadUrl + file} download>{file.substring(20)}</a></li>
+                    <li key={i}><a href="#/"
+                    onClick={() =>
+                      downloadFile(file,i)
+                    }>{file.substring(20)}</a></li>
                   ))
                 )) : null
-              }
+            }
             </Ul>
           </Row>
           {console.log("Button Status: " + btnStatus)}
-          <Attachment required={true} setFiles={setFiles} setBtnStatus={setBtnStatus} refresh={refresh} />
-          <Button disabled={btnStatus ? false : true} onClick={handleSubmit}>Upload</Button>
+          <Attachment required={true} setFiles={setFiles} setBtnStatus={setBtnStatus}  refresh={refresh} />
+          <Button  disabled={btnStatus ? false : true} onClick={handleSubmit}>Upload</Button>
         </div>
       </Container>
 
