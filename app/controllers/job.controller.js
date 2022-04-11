@@ -4,10 +4,10 @@ const ReviewNote = require("../models/reviewnote.model");
 downloadAttachments = async (req,res) =>{
     const fs = require("fs");
     const fileRequest = req.query.file.substring(6);
-    const file = fs.createReadStream("files/"+fileRequest);
+    const stream = fs.createReadStream("files/"+fileRequest);
     res.setHeader('Content-disposition', 'attachment; filename="'+fileRequest+'"');
-    file.pipe(res);
-}
+    stream.pipe(res)
+};
 
 uploadAttachments = async (req, res) => {
     const filter = { _id: req.params.id };

@@ -33,7 +33,6 @@ function JobDetail() {
       responseType: 'blob'
     })
     download(result.data,file);
-    console.log(result);
   };
 
   
