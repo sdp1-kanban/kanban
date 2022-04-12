@@ -11,7 +11,7 @@ import NavBar from "./components/home/NavBar/NavBar";
 import "./App.css";
 import { ModalContextProvider } from "./contexts/ModalContext";
 import { BoardContextProvider } from "./contexts/BoardContext";
-import JobDetail from "./pages/JobDetail/JobDetail";
+import JobDetail from "./components/JobDetail/JobDetail";
 
 function App() {
   return (

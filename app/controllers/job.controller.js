@@ -1,13 +1,21 @@
 const Job = require("../models/job.model");
 const ReviewNote = require("../models/reviewnote.model");
 
+downloadAttachments = async (req,res) =>{
+    const fs = require("fs");
+    const fileRequest = req.query.file.substring(6);
+    const stream = fs.createReadStream("files/"+fileRequest);
+    res.setHeader('Content-disposition', 'attachment; filename="'+fileRequest+'"');
+    stream.pipe(res)
+};
+
 uploadAttachments = async (req, res) => {
     const filter = { _id: req.params.id };
     const filePathArr = [];
     for(let i = 0; i < req.files.length; i++){
         filePathArr.push(req.files[i].path);
     }
-    const update = { attachments: filePathArr }
+    const update = { $push: {attachments: filePathArr} }
     let updatedJob = await Job.findOneAndUpdate(filter, update);
     res.status(200).json({
         success: true,
@@ -227,6 +235,7 @@ module.exports = {
     getJobById,
     uploadAttachments,
     closeJob,
+    downloadAttachments,
     getJobReviewNotes,
     createJobReviewNote,
 };

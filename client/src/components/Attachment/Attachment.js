@@ -3,7 +3,7 @@ import { DropZone, FileRemove, SelectedFiles, UploadBar, UploadStatus, ChooseFil
 
 const max = 2e+9;
 
-const Attachment = ({ setFiles, setBtnStatus }) => {
+const Attachment = ({ setFiles, setBtnStatus, refresh, required }) => {
 
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -38,10 +38,25 @@ const Attachment = ({ setFiles, setBtnStatus }) => {
     useEffect(() => {
         if (unsupportedFiles.length > 0) {
             setBtnStatus(false);
-        } else{
+        } else {
             setBtnStatus(true);
         }
     }, [unsupportedFiles])
+
+    useEffect(() => {
+        if (required) {
+            if ((validFiles.length > 0)&&(unsupportedFiles.length === 0)) {
+                setBtnStatus(true);
+            } else if((validFiles.length > 0)&&(unsupportedFiles.length > 0)){
+                setBtnStatus(false);
+            } else if((validFiles.length === 0)&&(unsupportedFiles.length > 0)){
+                setBtnStatus(false);
+            }else if((validFiles.length === 0)&&(unsupportedFiles.length === 0)){
+                setBtnStatus(false);
+            }
+        }
+    }, [validFiles],[unsupportedFiles])
+
 
     useEffect(() => {
         uploadFiles();
@@ -59,6 +74,14 @@ const Attachment = ({ setFiles, setBtnStatus }) => {
         setValidFiles([...filteredArray]);
 
     }, [selectedFiles]);
+
+    useEffect(() => {
+        setValidFiles([]);
+        setSelectedFiles([]);
+        setUnsupportedFiles([]);
+        setErrorMessage('');
+        uploadRef.current.innerHTML = '';
+    }, [refresh])
 
 
     const fileInputClicked = () => {

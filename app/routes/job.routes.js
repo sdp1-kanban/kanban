@@ -10,6 +10,7 @@ const fileStorageEngine = multer.diskStorage({
 })
 const upload = multer({storage: fileStorageEngine});
 
+router.get("/downloadAttachments",jobCtrl.downloadAttachments)
 router.get("/jobs", jobCtrl.getAllUnfinishedJobs)
 router.get("/jobs/finished", jobCtrl.getAllFinishedJobs)
 router.post('/job', jobCtrl.addJob)
