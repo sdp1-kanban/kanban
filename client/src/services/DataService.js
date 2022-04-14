@@ -14,7 +14,8 @@ export const uploadFiles = (files,jobId) => api.post(`/uploadAttachments/${jobId
 export const closeJob = (id) => api.put(`/job/close/${id}`)
 export const getEmployees = () => api.get(`/employees`)
 export const downloadFiles = (file, data) => api.get(`/downloadAttachments?file=${file}`, data)
-
+export const updateReview = (id, reviewToAdd) => api.post(`job/${id}/review-notes`, reviewToAdd);
+export const getReviews = (id) => api.get(`job/${id}/review-notes`)
 
 const apis = {
     getAllUnfinishedJobs,
@@ -26,7 +27,10 @@ const apis = {
     uploadFiles,
     closeJob,
     getEmployees,
-    downloadFiles
+    downloadFiles,
+    updateReview,
+    getReviews
+    
 }
 
 export default apis

@@ -5,6 +5,7 @@ import { Container, Row, RowHead, Button, Ul } from "./JobDetail.styled";
 import { useHistory, useLocation } from "react-router-dom";
 import Attachment from "../Attachment/Attachment";
 import download from 'downloadjs';
+import ReviewNote from "../ReviewNote/ReviewNote";
 
 function JobDetail() {
   const [job, setJob] = useState({});
@@ -14,6 +15,7 @@ function JobDetail() {
   let history = useHistory();
   const [jobLoaded, setJobLoaded] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [show,setShow] = useState(false);
 
   const getJob = async () => {
     const result = await DataService.getJob(id)
@@ -23,11 +25,14 @@ function JobDetail() {
       });
   };
 
+  
   useEffect(() => {
     getJob();
+    
     setRefresh(false);
   }, [id, refresh]);
 
+ 
   const downloadFile = async (file) => {
     const result = await DataService.downloadFiles(`${file}`, {
       responseType: 'blob'
@@ -96,6 +101,13 @@ function JobDetail() {
             <span>{job.isJobOpen ? "Open" : "Closed"}</span>
           </Row>
           <Row>
+            <h3>Review Notes</h3>
+            <ReviewNote id ={id} />
+            
+        
+          </Row>
+          
+          <Row>
             <h3>Attachment</h3>
             <Ul>
             {
@@ -113,6 +125,7 @@ function JobDetail() {
           {console.log("Button Status: " + btnStatus)}
           <Attachment required={true} setFiles={setFiles} setBtnStatus={setBtnStatus}  refresh={refresh} />
           <Button  disabled={btnStatus ? false : true} onClick={handleSubmit}>Upload</Button>
+          
         </div>
       </Container>
 
