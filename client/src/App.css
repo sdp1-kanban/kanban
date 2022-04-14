@@ -8,3 +8,13 @@ body{
     width: 100vw;
     overflow-x: hidden;
 }
+
+.reviews-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+}
+.reviews-list ul {
+    list-style-type: none;
+}

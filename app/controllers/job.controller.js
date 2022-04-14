@@ -207,6 +207,7 @@ createJobReviewNote = async (req, res) => {
     const note = new ReviewNote({
         job: req.params.id,
         content: req.body.content,
+        author : req.body.author
         // TODO: once things are linked up with accounts - save author as well
     });
 
