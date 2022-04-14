@@ -66,12 +66,15 @@ function ReviewNote(props) {
           <div key={review.content} className="reviews-list">
             <ul>
               <li>
-                <p style={{margin: 0}}>Author: {review.author}</p>
+                <p style={{ margin: 0 }}>Author: {review.author}</p>
               </li>
               <li>
-                <p style={{margin: 0}}>Note: {review.content}</p>
-                <hr />
+                <p style={{ margin: 0 }}>Note: {review.content}</p>
               </li>
+              <li>
+                <p style={{ margin: 0 }}>{(new Date(review.createdAt)).toLocaleString()}</p>
+              </li>
+              <hr />
             </ul>
 
           </div>
