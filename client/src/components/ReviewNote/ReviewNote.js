@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DataService from "../../services/DataService";
-import { Label, Input, Form, FormGroup, Button, Textarea } from './ReviewNote.styled';
+import { Label, Input, Form, FormGroup, Button, Textarea, ReviewList, ReviewUL, Content } from './ReviewNote.styled';
 
 
 function ReviewNote(props) {
@@ -63,21 +63,20 @@ function ReviewNote(props) {
 
       {reviews.map((review) => {
         return (
-          <div key={review.content} className="reviews-list">
-            <ul>
+          <ReviewList key={review.content}>
+            <ReviewUL>
               <li>
-                <p style={{ margin: 0 }}>Author: {review.author}</p>
+                <Content>Author: {review.author}</Content>
               </li>
               <li>
-                <p style={{ margin: 0 }}>Note: {review.content}</p>
+                <Content>Note: {review.content}</Content>
               </li>
               <li>
-                <p style={{ margin: 0 }}>{(new Date(review.createdAt)).toLocaleString()}</p>
+                <Content>{(new Date(review.createdAt)).toLocaleString()}</Content>
               </li>
               <hr />
-            </ul>
-
-          </div>
+            </ReviewUL>
+          </ReviewList>
         );
       })}
       <span><Button onClick={() => { setShow(!show); setX(!x) }}>{x ? "Add Note" : "Cancel"}</Button></span>

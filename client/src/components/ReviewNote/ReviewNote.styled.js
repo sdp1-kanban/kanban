@@ -1,5 +1,19 @@
 import styled from 'styled-components'
 
+export const ReviewList = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+`
+export const ReviewUL = styled.ul`
+    list-style-type: none;
+`
+export const Content = styled.p`
+    margin: 0px;
+    padding: 0px;
+`
+
 export const Form = styled.form`
     margin: 5rem;
     display: grid;
