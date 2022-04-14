@@ -14,6 +14,7 @@ function ReviewNote (props)  {
   const [data, setData] = useState(initialState);
   const [reviews, setReview] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [x,setX] = useState(true);
   const handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -78,7 +79,7 @@ function ReviewNote (props)  {
           </div>
         );
       })}
-      <span><Button onClick={()=>setShow(!show)}>Add Note</Button></span>
+      <span><Button onClick={()=>{setShow(!show);setX(!x)}}>{x?"Add Note":"Cancel"}</Button></span>
       {
         show? 
         
