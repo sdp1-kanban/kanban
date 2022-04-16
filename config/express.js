@@ -34,7 +34,6 @@ module.exports = () => {
     }
 
     require("../app/routes/index.routes")(app);
-    //require("../app/routes/job.routes")(app);   
     app.use('/api', jobRouter)
     app.use('/api', empRouter)
     app.use(express.static(path.join(__dirname, '../files')));

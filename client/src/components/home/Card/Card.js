@@ -82,19 +82,6 @@ function Card(props) {
                                         <td><Row2LeftCol>Revision #: {props.item.revisionNum}</Row2LeftCol></td>
                                         <td>
                                             Assigned To: {props.item.assignedTo}
-                                            {/*
-                                            <ComboBox name="names"> 
-                                                <option value="Osman">Osman</option>
-                                                <option value="Robin">Robin</option>
-                                                <option value="Ayan">Ayan</option>
-                                                <option value="Marianne">Marianne</option>
-                                                <option value="Parisa">Parisa</option>
-                                                <option value="Akino">Akino</option>
-                                                <option value="Asylhan">Asylhan</option>
-                                                <option value="Marwa">Marwa</option>
-                                                <option value="Hamoun">Hamoun</option>                                          
-                                            </ComboBox>
-                                            */}
                                         </td>
                                     </tr>
                                 </tbody>
