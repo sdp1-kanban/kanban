@@ -22,10 +22,8 @@ function ReviewNote(props) {
   };
 
   useEffect(() => {
-    // let isMounted = true; 
     getReview();
     setRefresh(false);
-    // return () => { isMounted = false }; 
   }, [refresh]);
 
   const getReview = async () => {
