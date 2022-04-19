@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --runInBand ./test"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -21,6 +21,9 @@
     "send": "^0.17.2"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
+    "mongodb-memory-server": "^8.5.0",
+    "node-fetch-commonjs": "^3.1.1",
     "nodemon": "^2.0.15"
   }
 }
