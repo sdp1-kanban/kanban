@@ -135,7 +135,7 @@ deleteJob = async (req, res) => {
         }
 
         return res.status(200).json({ success: true, data: job })
-    }).clone().catch(err => console.log(err))
+    }).catch(err => console.log(err))
 }
 
 getJobById = async (req, res) => {
